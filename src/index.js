@@ -12,15 +12,17 @@
 
       directives[key] = [cb];
     },
+
     compile(node) {
       const atribs = node.getAttributeNames();
 
       atribs.forEach(atr => {
         if (directives[atr]) {
-          directives[atr](node);
+          directives[atr].forEach(cb => cb(node));
         }
       });
     },
+
     bootstrap(node) {
       let appNode = node;
 
@@ -29,9 +31,7 @@
       }
 
       const childNodes = appNode.querySelectorAll('*');
-      childNodes.forEach(el => {
-        this.compile(el);
-      });
+      childNodes.forEach(el => this.compile(el));
     }
   };
 
