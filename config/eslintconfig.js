@@ -16,7 +16,7 @@ module.exports = {
     'jest': true,
     'beforeEach': true,
     'describe': true,
-    'test': true,
+    'test': true
   },
   'rules': {
     // possible errors
@@ -39,12 +39,12 @@ module.exports = {
     'no-alert': 'error',
     'no-caller': 'error',
     'no-empty-function': 'error',
-    'no-eval': 'error',
+    // 'no-eval': 'error',
     'no-extend-native': 'error',
     'no-floating-decimal': 'error',
     'no-implicit-coercion': 'error',
     'no-implicit-globals': 'error',
-    'no-implied-eval': 'error',
+    // 'no-implied-eval': 'error',
     'no-invalid-this': 0,
     'no-lone-blocks': 'error',
     'no-loop-func': 'error',
@@ -164,7 +164,7 @@ module.exports = {
       { 'blankLine': 'always', 'prev': '*', 'next': 'for' },
       { 'blankLine': 'always', 'prev': '*', 'next': 'while' },
       { 'blankLine': 'always', 'prev': '*', 'next': 'switch' },
-      { 'blankLine': 'always', 'prev': '*', 'next': 'do' },
+      { 'blankLine': 'always', 'prev': '*', 'next': 'do' }
     ],
     // 'quote-props': ['error', 'consistent-as-needed'],
     'quote-props': 0,

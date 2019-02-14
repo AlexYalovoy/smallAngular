@@ -8,13 +8,15 @@
 </head>
 
 <body ng-app ng-init="name='ivan'">
-    <div ng-show="true"> hi Ivan!!! </div>
+    <div ng-show="test === false"> hi Ivan!!! </div>
     <input ng-model="name"/>
     <p ng-make-short>qqq qqq qqq qqq qqq qqq qqq</p>
-    <p ng-bind="name"></p>
+    <p ng-repeat="l in name"></p>
+    <button ng-click='test=!test'>Make ivan</button>
     <ul>
       <li ng-make-long="some">One</li>
     </ul>
 </body>
+<script src = "./js/index.js"></script>
 
 </html>
