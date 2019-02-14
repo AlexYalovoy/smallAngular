@@ -1,7 +1,3 @@
 {
-  "env": {
-    "node": true,
-    "commonjs": true
-  },
   "extends": "./config/eslintconfig.js"
 }

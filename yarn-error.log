@@ -1,0 +1,58 @@
+Arguments: 
+  E:\JavaScript\node\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Program Files\NVIDIA Corporation\PhysX\Common;C:\Program Files\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;E:\AndroidSDK\platform-tools;C:\Program Files\Windows Kits\8.1\Windows Performance Toolkit\;D:\Git\cmd;C:\Windows\System32\WindowsPowerShell\v1.0\;E:\JavaScript\node\;C:\Program Files\Java\jdk1.8.0_121\bin;C:\Program Files\curl-7.59.0-win32-mingw\bin;C:\Users\user\AppData\Roaming\npm;D:\Programs\UoPilot;C:\cmder\;C:\Users\user\AppData\Local\Yarn\bin;E:\Editors\Microsoft VS Code\bin;D:\Git\git-bash.exe;E:\Vim\vim81\vim.exe;C:\Users\user\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\user\AppData\Local\Programs\Python\Python37-32\;C:\Program Files\Java\jdk1.8.0_121\bin
+
+Yarn version: 
+  1.9.4
+
+Node version: 
+  8.12.0
+
+Platform: 
+  win32 ia32
+
+Trace: 
+  SyntaxError: E:\Internature\JS\smallAngular\package.json: Unexpected token } in JSON at position 636
+      at JSON.parse (<anonymous>)
+      at C:\Users\user\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\user\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:92:30)
+      at C:\Users\user\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:103:13
+      at <anonymous>
+
+npm manifest: 
+  {
+    "name": "angular1",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "lint": "eslint --ext .js src/",
+      "start": "webpack-dev-server --open"
+    },
+    "pre-commit": [
+      "lint"
+    ],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "eslint": "^5.12.1",
+      "pre-commit": "^1.2.2",
+      "eslint-config-airbnb-base": "^12.0.2",
+      "eslint-config-prettier": "^2.6.0",
+      "eslint-plugin-import": "^2.7.0",
+      "babel-eslint": "^10.0.1",
+      "webpack": "^4.27.1",
+      "webpack-cli": "^3.1.2",
+      "webpack-dev-server": "^3.1.10",
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
