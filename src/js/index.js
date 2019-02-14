@@ -37,7 +37,7 @@
       atribs.forEach(atr => {
         if (directives[atr]) {
           const value = node.getAttribute(atr);
-          directives[atr].forEach(cb => cb({ scope, node, value, restAtr: restAtrs }));
+          directives[atr].forEach(cb => cb({ scope, node, value, restAtrs }));
         }
       });
     },
@@ -89,6 +89,29 @@
   });
 
   smallAngular.directive('ng-repeat', function({ scope, node, value }) {
+    const iterable = eval(value.split('in')[1].trim());
+
+    for (const i in iterable) {
+      const newEl = node.cloneNode();
+      newEl.innerText = iterable[i];
+
+      const parent = node.parentNode;
+      parent.insertBefore(newEl, node);
+    }
+    // node.parentNode.removeChild(node);
+
+    scope.$watch(() => {
+      const iterable = eval(value.split('in')[1].trim());
+
+      for (const i in iterable) {
+        const newEl = node.cloneNode();
+        newEl.innerText = iterable[i];
+
+        const parent = node.parentNode;
+        parent.insertBefore(newEl, node);
+      }
+      // node.parentNode.removeChild(node);
+    });
   });
 
   smallAngular.directive('ng-uppercase', function({ scope, node, value }) {
@@ -96,7 +119,7 @@
   });
 
   smallAngular.directive('ng-make-short', function({ scope, node, value, restAtrs }) {
-    node.innerText = `${node.innerText.slice(0, restAtrs.length || 5)}...`;
+    node.innerText = `${node.innerText.slice(0, restAtrs['length'] || 5)}...`;
   });
 
   smallAngular.directive('ng-random-color', function({ scope, node, value }) {
