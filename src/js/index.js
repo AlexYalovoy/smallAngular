@@ -27,12 +27,17 @@
 
     compile(node) {
       const atribs = node.getAttributeNames();
-      const restAtr = atribs.filter(atr => !atr.includes('ng-'));
+      const restAtrs = atribs.reduce((acc, atr) => {
+        if (!atr.includes('ng-')) {
+          acc[atr] = node.getAttribute(atr);
+        }
+        return acc;
+      }, {});
 
       atribs.forEach(atr => {
         if (directives[atr]) {
           const value = node.getAttribute(atr);
-          directives[atr].forEach(cb => cb({ scope, node, value, restAtr }));
+          directives[atr].forEach(cb => cb({ scope, node, value, restAtr: restAtrs }));
         }
       });
     },
@@ -84,22 +89,18 @@
   });
 
   smallAngular.directive('ng-repeat', function({ scope, node, value }) {
-
   });
 
   smallAngular.directive('ng-uppercase', function({ scope, node, value }) {
     node.style.textTransform = 'uppercase';
   });
 
-  smallAngular.directive('ng-make-short', function({ scope, node, value, restAtr }) {
-    const length = node.getAttribute('length') || 5;
-    node.innerText = node.innerText.slice(0, length);
+  smallAngular.directive('ng-make-short', function({ scope, node, value, restAtrs }) {
+    node.innerText = `${node.innerText.slice(0, restAtrs.length || 5)}...`;
   });
 
   smallAngular.directive('ng-random-color', function({ scope, node, value }) {
-    function getRand(numb) {
-      return Math.floor(Math.random() * (numb + 1));
-    }
+    const getRand = numb => Math.floor(Math.random() * (numb + 1));
     node.style.backgroundColor = `rgb(${getRand(255)}, ${getRand(255)}, ${getRand(255)})`;
 
     node.addEventListener('click', () => (node.style.backgroundColor =
