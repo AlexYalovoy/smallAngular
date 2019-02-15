@@ -7,12 +7,12 @@
   <title>Angular</title>
 </head>
 
-<body ng-app ng-init="name='ivan'">
+<body ng-app ng-init="name='petya'">
     <div ng-random-color> hi Ivan!!! </div>
     <input ng-model="name"/>
     <p ng-make-short length = '10' ng-uppercase>qqq qqq qqq qqq qqq qqq qqq</p>
     <p ng-repeat="l in name"></p>
-    <button ng-click='test=!test'>Make ivan</button>
+    <button ng-click='name="ivan"'>Make ivan</button>
     <ul>
       <li ng-make-long="some">One</li>
     </ul>

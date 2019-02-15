@@ -1,3 +1,4 @@
+/* eslint-disable no-continue */
 /* eslint-disable no-empty-function */
 /* eslint-disable wrap-iife */
 (function() {
@@ -9,7 +10,7 @@
 
   scope.$watch = watcher => watchers.push(watcher);
   scope.$apply = () => watchers.forEach(cb => cb());
-  scope.test = true;
+  // scope.test = true;
 
   const smallAngular = {
     get data() {
@@ -89,28 +90,38 @@
   });
 
   smallAngular.directive('ng-repeat', function({ scope, node, value }) {
-    const iterable = eval(value.split('in')[1].trim());
+    function appendFromIterable(node, iterable) {
+      const currEl = node.nextSibling;
+      node.innerText = '';
 
-    for (const i in iterable) {
-      const newEl = node.cloneNode();
-      newEl.innerText = iterable[i];
+      for (let i = 0; i < iterable.length; i++) {
+        if (i === 0) {
+          node.innerText = iterable[i];
+          continue;
+        }
 
-      const parent = node.parentNode;
-      parent.insertBefore(newEl, node);
+        const newEl = node.cloneNode(false);
+        newEl.innerText = iterable[i];
+        node.parentNode.insertBefore(newEl, currEl);
+      }
     }
-    // node.parentNode.removeChild(node);
+
+    const iterable = eval(value.split('in')[1].trim());
+    const endEl = node.nextSibling;
+    appendFromIterable(node, iterable);
 
     scope.$watch(() => {
       const iterable = eval(value.split('in')[1].trim());
+      let currEl = node.nextSibling;
 
-      for (const i in iterable) {
-        const newEl = node.cloneNode();
-        newEl.innerText = iterable[i];
-
-        const parent = node.parentNode;
-        parent.insertBefore(newEl, node);
+      // delete repeated elements
+      while (currEl !== endEl) {
+        node.parentNode.removeChild(currEl);
+        currEl = node.nextSibling;
       }
-      // node.parentNode.removeChild(node);
+
+      // and add new elements
+      appendFromIterable(node, iterable);
     });
   });
 
@@ -123,11 +134,11 @@
   });
 
   smallAngular.directive('ng-random-color', function({ scope, node, value }) {
-    const getRand = numb => Math.floor(Math.random() * (numb + 1));
-    node.style.backgroundColor = `rgb(${getRand(255)}, ${getRand(255)}, ${getRand(255)})`;
+    const getRandCol = () => Math.floor(Math.random() * 256);
+    node.style.backgroundColor = `rgb(${getRandCol()}, ${getRandCol()}, ${getRandCol()})`;
 
     node.addEventListener('click', () => (node.style.backgroundColor =
-      `rgb(${getRand(255)}, ${getRand(255)}, ${getRand(255)})`));
+      `rgb(${getRandCol()}, ${getRandCol()}, ${getRandCol()})`));
   });
 
   smallAngular.directive('ng-init', function({ scope, node, value }) {
