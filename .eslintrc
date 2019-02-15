@@ -1,3 +1,6 @@
 {
+  "env": {
+    "commonjs": true
+  },
   "extends": "./config/eslintconfig.js"
 }
