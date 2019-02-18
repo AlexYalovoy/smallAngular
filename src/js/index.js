@@ -132,7 +132,7 @@
   });
 
   smallAngular.directive('ng-make-short', function(scope, node, restAtrs) {
-    node.innerText = `${node.innerText.slice(0, restAtrs['length'] || 5)}...`;
+    node.innerText = `${node.innerText.slice(0, restAtrs.length || 5)}...`;
   });
 
   smallAngular.directive('ng-random-color', function(scope, node) {
