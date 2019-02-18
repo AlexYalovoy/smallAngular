@@ -4,7 +4,6 @@
 /* eslint-disable no-eval */
 /* eslint-disable no-implied-eval */
 (function() {
-  const data = {};
   const scope = window;
   const watchers = [];
   const directives = {};
@@ -15,10 +14,6 @@
   };
 
   const smallAngular = {
-    get data() {
-      return data;
-    },
-
     directive(key, cb) {
       if (directives[key]) {
         directives[key].push(cb);
@@ -154,6 +149,4 @@
   });
 
   window.smallAngular = smallAngular;
-
-  smallAngular.bootstrap();
 })();
