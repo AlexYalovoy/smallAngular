@@ -68,7 +68,6 @@
     const value = node.getAttribute('ng-show');
     node.style.display = eval(value) ? 'block' : 'none';
     scope.$watch(() => eval(node.getAttribute('ng-show')), () => (node.style.display = eval(value) ? 'block' : 'none'));
-    scope.$apply();
   });
 
   smallAngular.directive('ng-bind', function(scope, node) {
@@ -91,7 +90,6 @@
   });
 
   smallAngular.directive('ng-repeat', function(scope, node) {
-    const value = node.getAttribute('ng-repeat');
     function appendFromIterable(node, iterable) {
       const currEl = node.nextSibling;
       node.innerText = '';
@@ -108,6 +106,7 @@
       }
     }
 
+    const value = node.getAttribute('ng-repeat');
     const iterable = eval(value.split('in')[1].trim());
     const endEl = node.nextSibling;
     appendFromIterable(node, iterable);
