@@ -1,5 +1,3 @@
-/* eslint-disable no-continue */
-/* eslint-disable no-empty-function */
 /* eslint-disable wrap-iife */
 /* eslint-disable no-eval */
 /* eslint-disable no-implied-eval */
@@ -61,24 +59,28 @@
       scope[value] = event.target.value;
       scope.$apply();
     });
-    scope.$watch(() => eval(node.getAttribute('ng-model')), () => (node.value = eval(value)));
+    scope.$watch(value, () => (node.value = eval(value)));
   });
 
   smallAngular.directive('ng-show', function(scope, node) {
     const value = node.getAttribute('ng-show');
     node.style.display = eval(value) ? 'block' : 'none';
-    scope.$watch(() => eval(node.getAttribute('ng-show')), () => (node.style.display = eval(value) ? 'block' : 'none'));
+    scope.$watch(() => eval(value), () => {
+      node.style.display = eval(value) ? 'block' : 'none';
+    });
   });
 
   smallAngular.directive('ng-bind', function(scope, node) {
     const value = node.getAttribute('ng-bind');
-    scope.$watch(() => eval(node.getAttribute('ng-bind')), () => (node.innerText = eval(value)));
+    scope.$watch(() => eval(value), () => (node.innerText = eval(value)));
   });
 
   smallAngular.directive('ng-hide', function(scope, node) {
     const value = node.getAttribute('ng-hide');
     node.style.display = eval(value) ? 'none' : 'block';
-    scope.$watch(() => eval(node.getAttribute('ng-hide')), () => (node.style.display = eval(value) ? 'none' : 'block'));
+    scope.$watch(() => eval(value), () => {
+      node.style.display = eval(value) ? 'none' : 'block';
+    });
   });
 
   smallAngular.directive('ng-click', function(scope, node) {
@@ -92,27 +94,22 @@
   smallAngular.directive('ng-repeat', function(scope, node) {
     function appendFromIterable(node, iterable) {
       const currEl = node.nextSibling;
-      node.innerText = '';
+      node.innerText = iterable[0] || '';
 
-      for (let i = 0; i < iterable.length; i++) {
-        if (i === 0) {
-          node.innerText = iterable[i];
-          continue;
-        }
-
+      for (let i = 1; i < iterable.length; i++) {
         const newEl = node.cloneNode(false);
         newEl.innerText = iterable[i];
         node.parentNode.insertBefore(newEl, currEl);
       }
     }
 
-    const value = node.getAttribute('ng-repeat');
-    const iterable = eval(value.split('in')[1].trim());
+    const variableName = node.getAttribute('ng-repeat').split('in')[1].trim();
+    const iterable = eval(variableName);
     const endEl = node.nextSibling;
     appendFromIterable(node, iterable);
 
-    scope.$watch(() => eval(value.split('in')[1].trim()), () => {
-      const iterable = eval(value.split('in')[1].trim());
+    scope.$watch(() => eval(variableName), () => {
+      const iterable = eval(variableName);
       let currEl = node.nextSibling;
 
       // delete repeated elements
@@ -131,15 +128,17 @@
   });
 
   smallAngular.directive('ng-make-short', function(scope, node, restAtrs) {
-    node.innerText = `${node.innerText.slice(0, restAtrs.length || 5)}...`;
+    const preparedText = node.innerText.slice(0, restAtrs.length || 5);
+    node.innerText = `${preparedText}...`;
   });
 
   smallAngular.directive('ng-random-color', function(scope, node) {
     const getRandCol = () => Math.floor(Math.random() * 256);
     node.style.backgroundColor = `rgb(${getRandCol()}, ${getRandCol()}, ${getRandCol()})`;
 
-    node.addEventListener('click', () => (node.style.backgroundColor =
-      `rgb(${getRandCol()}, ${getRandCol()}, ${getRandCol()})`));
+    node.addEventListener('click', () => {
+      node.style.backgroundColor = `rgb(${getRandCol()}, ${getRandCol()}, ${getRandCol()})`;
+    });
   });
 
   smallAngular.directive('ng-init', function(scope, node) {
