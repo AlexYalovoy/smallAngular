@@ -68,7 +68,6 @@
     const value = node.getAttribute('ng-show');
     node.style.display = eval(value) ? 'block' : 'none';
     scope.$watch(() => eval(node.getAttribute('ng-show')), () => (node.style.display = eval(value) ? 'block' : 'none'));
-    scope.$apply();
   });
 
   smallAngular.directive('ng-bind', function(scope, node) {
